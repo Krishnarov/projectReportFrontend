@@ -15,10 +15,10 @@ const openmodal=(row)=>{
 setModalOpen(true),
 setCurrentStudent(row)
 }
-
+const Base_Api=import.meta.env.VITE_BASE_URL
   const getAllStudents = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/projects`);
+      const res = await axios.get(`${Base_Api}/api/projects`);
       console.log(res);
       setStudents(res.data);
     } catch (error) {

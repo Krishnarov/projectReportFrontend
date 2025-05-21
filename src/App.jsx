@@ -1,7 +1,7 @@
 import "./App.css";
 import 'remixicon/fonts/remixicon.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MultiStepForm from "./pages/studentFrom.jsx";
+import MultiStepForm from "./pages/StudentFrom.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import PdfPriview from "./pages/PdfPriview.jsx";
 

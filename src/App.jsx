@@ -3,7 +3,7 @@ import 'remixicon/fonts/remixicon.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StudentForm from "./pages/StudentFrom.jsx";
 import Dashboard from "./pages/dashboard.jsx";
-import PdfPriview from "./pages/PdfPriview.jsx";
+import PdfPreview from "./pages/PdfPriview.jsx";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<StudentForm />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/priviwe" element={<PdfPriview />} />
+        <Route path="/priviwe" element={<PdfPreview />} />
       </Routes>
     </BrowserRouter>
   );

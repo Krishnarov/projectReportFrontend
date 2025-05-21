@@ -2,8 +2,9 @@ import "./App.css";
 import 'remixicon/fonts/remixicon.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StudentForm from "./pages/StudentFrom.jsx";
-import Dashboard from "./pages/dashboard.jsx";
+
 import PdfPreview from "./pages/PdfPriview.jsx";
+import Dashboard from "./pages/Dashboard.jsx"
 
 function App() {
   return (

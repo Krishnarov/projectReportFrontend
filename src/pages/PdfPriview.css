@@ -1,0 +1,314 @@
+/* General styles */
+.pdf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.print-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.print-button:hover {
+  background-color: #45a049;
+}
+
+/* A4 container styles */
+.a4-container {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.page {
+  padding: 20mm;
+  height: 277mm;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+/* Cover page styles */
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* .cover-page .header {
+  margin-top: 40px;
+} */
+
+.project-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.project-type {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.report-type {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.submission-text {
+  margin-bottom: 5px;
+}
+
+.diploma-text {
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.institution {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.location {
+  margin-bottom: 20px;
+}
+
+.department {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.signature-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.submitted-by, .submitted-to {
+  text-align: center;
+  width: 45%;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.assisted, .supervised {
+  margin-bottom: 5px;
+}
+
+.name {
+  margin: 5px 0;
+}
+
+.dept, .position {
+  margin: 5px 0;
+}
+
+/* Certificate page styles */
+.certificate-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.certificate-page .header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.certificate-page .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.certificate-page .content {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.certificate-page .bold {
+  font-weight: bold;
+}
+
+.certificate-page .signature-section {
+  margin-top: 100px;
+}
+
+/* Approval page styles */
+.approval-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.approval-page .header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.approval-page .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.approval-page .content {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.approval-page .signature-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 100px;
+}
+
+.approval-page .examiner {
+  text-align: center;
+  width: 45%;
+}
+
+.approval-page .line {
+  border-top: 1px solid black;
+  width: 100px;
+  margin: 0 auto 5px;
+}
+
+/* Declaration page styles */
+.declaration-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.declaration-page .header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.declaration-page .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.declaration-page .content {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.declaration-page .signature {
+  text-align: right;
+  margin-top: 100px;
+}
+
+.declaration-page .session {
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* Acknowledgement page styles */
+.acknowledgement-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.acknowledgement-page .header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.acknowledgement-page .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.acknowledgement-page .content {
+  text-align: justify;
+  margin-bottom: 30px;
+}
+
+.acknowledgement-page .content p {
+  margin-bottom: 15px;
+}
+
+.acknowledgement-page .signature {
+  text-align: right;
+  margin-top: 50px;
+}
+
+/* Index page styles */
+.index-page {
+  padding: 20mm;
+}
+
+.index-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.index-content {
+  text-align: left;
+}
+
+.index-content ol {
+  padding-left: 20px;
+}
+
+.index-content li {
+  margin-bottom: 10px;
+}
+
+.index-content ul {
+  padding-left: 30px;
+  list-style-type: none;
+}
+
+.index-content ul li:before {
+  content: "○";
+  margin-right: 5px;
+}
+
+/* Print-specific styles */
+@media print {
+  body {
+    margin: 0;
+    background: white;
+  }
+  
+  .pdf-container {
+    padding: 0;
+  }
+  
+  .print-button {
+    display: none;
+  }
+  
+  .a4-container {
+    box-shadow: none;
+  }
+  
+  .page {
+    page-break-after: always;
+    height: 277mm;
+  }
+    header, footer {
+    display: none !important;
+  }
+}

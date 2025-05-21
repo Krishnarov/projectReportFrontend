@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function MultiStepForm() {
+export default function StudentForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     personalDetails: {

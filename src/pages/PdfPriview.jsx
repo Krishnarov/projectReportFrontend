@@ -1024,22 +1024,6 @@ const [isdisabled, setisdisabled] = useState(true);
       console.error(`Error generating ${section}:`, error);
     }
   };
-const storepdf=async()=>{
-  try {
-    const formData = new FormData();  
-    formData.append("pdf", document.body.innerHTML); // ✅ This must match upload.single("pdf")
-    formData.append("studentId", studentData._id);
-
-    const res=await axios.post(`http://localhost:3000/api/report-pdf`,formData,{headers: {
-    "Content-Type": "multipart/form-data",
-  }})
-    console.log(res);
-    
-  } catch (error) {
-    console.log();
-    
-  }
-}
 
   useEffect(() => {
     // Generate all sections when component mounts

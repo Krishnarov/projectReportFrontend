@@ -155,7 +155,7 @@ export default function MultiStepForm() {
       });
     }
   };
-
+const Base_Api=import.meta.env.VITE_BASE_URL
   const saveAndContinue = async (currentStep) => {
     setIsLoading(true);
     try {
@@ -164,7 +164,7 @@ export default function MultiStepForm() {
       if (currentStep === 1) {
         // First step - create new project
         response = await axios.post(
-          "http://localhost:3000/api/projects",
+          `${Base_Api}/api/projects`,
           formData
         );
         setProjectId(response.data._id);
@@ -178,7 +178,7 @@ export default function MultiStepForm() {
       } else {
         // Subsequent steps - update existing project
         response = await axios.put(
-          `http://localhost:3000/api/projects/${projectId}`,
+          `${Base_Api}/api/projects/${projectId}`,
           formData
         );
         localStorage.setItem(
@@ -220,7 +220,7 @@ export default function MultiStepForm() {
         );
 
       const response = await axios.post(
-        `http://localhost:3000/api/projects/${projectId}`,
+        `${Base_Api}/api/projects/${projectId}`,
         sendData
       );
       console.log("Final submission:", response);

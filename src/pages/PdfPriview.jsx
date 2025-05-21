@@ -1604,7 +1604,7 @@ useEffect(() => {
 
 
         {/* Technology Stack Page */}
-        <div className=" mb-10">
+        <div className="page break-before-page mb-10">
           <h2 className="text-2xl font-bold mb-6 text-center underline">5. Technology Stack</h2>
 
           <div className="mb-4">
@@ -1682,6 +1682,7 @@ useEffect(() => {
           </h2>
           {/* <div dangerouslySetInnerHTML={{ __html: content.backendDesign }} /> */}
           <h3 className="text-lg font-bold mb-2">{content.backendDesign.split("**")[1]}</h3>
+           <p className="text-justify">{content.backendDesign.split("**")[2]} </p>
           <h3 className="text-lg font-bold mb-2">{content.backendDesign.split("**")[3]}</h3>
           <p className="text-justify">{content.backendDesign.split("**")[4]} </p>
           <h4 className="text-lg font-bold mb-2">{content.backendDesign.split("**")[5]}</h4>

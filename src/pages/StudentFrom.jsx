@@ -88,6 +88,78 @@ export default function StudentForm() {
       "Other",
     ],
   };
+const validateStep = (currentStep) => {
+  switch (currentStep) {
+    case 1:
+      const { name, Number, enrollmentNumber, contactEmail } = formData.personalDetails;
+      if (!name || !Number || !enrollmentNumber || !contactEmail) {
+        alert("Please fill in all personal details.");
+        return false;
+      }
+      if (!/^\d{10}$/.test(Number)) {
+        alert("Phone number must be 10 digits.");
+        return false;
+      }
+      if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+        alert("Invalid email format.");
+        return false;
+      }
+      return true;
+
+    case 2:
+      const { collegeName, TeacherName, branch, session } = formData.collegeDetails;
+      if (!collegeName || !TeacherName || !branch || !session) {
+        alert("Please fill in all college details.");
+        return false;
+      }
+      return true;
+
+    case 3:
+      const {
+        projectTitle,
+        projectName,
+        TrainingType,
+        backendTechnology,
+        frontendTechnology,
+        database,
+        TeamName,
+        StartDate,
+        EndDate,
+      } = formData.projectDetails;
+      if (
+        !projectTitle ||
+        !projectName ||
+        !TrainingType ||
+        !backendTechnology ||
+        !frontendTechnology ||
+        !database ||
+        !TeamName ||
+        !StartDate ||
+        !EndDate
+      ) {
+        alert("Please fill in all project details.");
+        return false;
+      }
+      return true;
+
+    case 4:
+      const { projectCode, dfdDiagram, erDiagram, uiScreenshots } = formData.projectAssets;
+      if (
+        projectCode.length === 0 ||
+        !dfdDiagram ||
+        !erDiagram ||
+        uiScreenshots.length === 0
+      ) {
+        alert("Please upload all required files.");
+        return false;
+      }
+      return true;
+
+    default:
+      return true;
+  }
+};
+
 
   useEffect(() => {
     // Check if there's a saved project in localStorage
@@ -156,83 +228,148 @@ export default function StudentForm() {
     }
   };
 const Base_Api=import.meta.env.VITE_BASE_URL
-  const saveAndContinue = async (currentStep) => {
-    setIsLoading(true);
-    try {
-      let response;
+  // const saveAndContinue = async (currentStep) => {
+  //   setIsLoading(true);
+  //   try {
+  //     let response;
 
-      if (currentStep === 1) {
-        // First step - create new project
-        response = await axios.post(
-          `${Base_Api}/api/projects`,
-          formData
-        );
-        setProjectId(response.data._id);
-        localStorage.setItem(
-          "currentProject",
-          JSON.stringify({
-            id: response.data._id,
-            data: response.data,
-          })
-        );
-      } else {
-        // Subsequent steps - update existing project
-        response = await axios.put(
-          `${Base_Api}/api/projects/${projectId}`,
-          formData
-        );
-        localStorage.setItem(
-          "currentProject",
-          JSON.stringify({
-            id: projectId,
-            data: response.data,
-          })
-        );
-      }
+  //     if (currentStep === 1) {
+  //       // First step - create new project
+  //       response = await axios.post(
+  //         `${Base_Api}/api/projects`,
+  //         formData
+  //       );
+  //       setProjectId(response.data._id);
+  //       localStorage.setItem(
+  //         "currentProject",
+  //         JSON.stringify({
+  //           id: response.data._id,
+  //           data: response.data,
+  //         })
+  //       );
+  //     } else {
+  //       // Subsequent steps - update existing project
+  //       response = await axios.put(
+  //         `${Base_Api}/api/projects/${projectId}`,
+  //         formData
+  //       );
+  //       localStorage.setItem(
+  //         "currentProject",
+  //         JSON.stringify({
+  //           id: projectId,
+  //           data: response.data,
+  //         })
+  //       );
+  //     }
 
-      setStep(currentStep + 1);
-    } catch (error) {
-      console.error("Error saving data:", error);
-      alert("Failed to save data. Please try again.");
-    } finally {
-      setIsLoading(false);
+  //     setStep(currentStep + 1);
+  //   } catch (error) {
+  //     console.error("Error saving data:", error);
+  //     alert("Failed to save data. Please try again.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+const saveAndContinue = async (currentStep) => {
+  if (!validateStep(currentStep)) return;
+
+  setIsLoading(true);
+  try {
+    let response;
+    if (currentStep === 1) {
+      response = await axios.post(`${Base_Api}/api/projects`, formData);
+      setProjectId(response.data._id);
+      localStorage.setItem(
+        "currentProject",
+        JSON.stringify({ id: response.data._id, data: response.data })
+      );
+    } else {
+      response = await axios.put(`${Base_Api}/api/projects/${projectId}`, formData);
+      localStorage.setItem(
+        "currentProject",
+        JSON.stringify({ id: projectId, data: response.data })
+      );
     }
-  };
+    setStep(currentStep + 1);
+  } catch (error) {
+    console.error("Error saving data:", error);
+    alert("Failed to save data. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+
 
   const prevStep = () => {
     setStep(step - 1);
   };
   console.log(formData);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const sendData = new FormData();
-      sendData.append("dfdDiagram", formData.projectAssets.dfdDiagram);
-      sendData.append("erDiagram", formData.projectAssets.erDiagram);
-      formData.projectAssets.projectCode.forEach((file) =>
-        sendData.append("projectCode", file)
-      ),
-        formData.projectAssets.uiScreenshots.forEach((file) =>
-          sendData.append("uiScreenshots", file)
-        );
+  if (!validateStep(4)) return; // Final validation before submit
 
-      const response = await axios.post(
-        `${Base_Api}/api/projects/${projectId}`,
-        sendData
-      );
-      console.log("Final submission:", response);
-      localStorage.removeItem("currentProject");
-      setStep(5);
-    } catch (error) {
-      console.error("Error submitting project:", error);
-      alert("Failed to submit project. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  setIsLoading(true);
+  try {
+    const sendData = new FormData();
+    sendData.append("dfdDiagram", formData.projectAssets.dfdDiagram);
+    sendData.append("erDiagram", formData.projectAssets.erDiagram);
+    formData.projectAssets.projectCode.forEach((file) =>
+      sendData.append("projectCode", file)
+    );
+    formData.projectAssets.uiScreenshots.forEach((file) =>
+      sendData.append("uiScreenshots", file)
+    );
+
+    const response = await axios.post(`${Base_Api}/api/projects/${projectId}`, sendData);
+    console.log("Final submission:", response);
+    localStorage.removeItem("currentProject");
+    setStep(5);
+  } catch (error) {
+    console.error("Error submitting project:", error);
+    alert("Failed to submit project. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+
+  //   try {
+  //     const sendData = new FormData();
+  //     sendData.append("dfdDiagram", formData.projectAssets.dfdDiagram);
+  //     sendData.append("erDiagram", formData.projectAssets.erDiagram);
+  //     formData.projectAssets.projectCode.forEach((file) =>
+  //       sendData.append("projectCode", file)
+  //     ),
+  //       formData.projectAssets.uiScreenshots.forEach((file) =>
+  //         sendData.append("uiScreenshots", file)
+  //       );
+
+  //     const response = await axios.post(
+  //       `${Base_Api}/api/projects/${projectId}`,
+  //       sendData
+  //     );
+  //     console.log("Final submission:", response);
+  //     localStorage.removeItem("currentProject");
+  //     setStep(5);
+  //   } catch (error) {
+  //     console.error("Error submitting project:", error);
+  //     alert("Failed to submit project. Please try again.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const resetForm = () => {
     setFormData({

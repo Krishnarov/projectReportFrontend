@@ -16,7 +16,7 @@ function Modal({ isOpen, onClose, title, children, footer }) {
                 </div>
 
                 {/* Body */}
-                <div className="p-6 overflow-y-scroll max-h-96">
+                <div className="p-6 overflow-y-scroll ">
                     {children}
                 </div>
 
